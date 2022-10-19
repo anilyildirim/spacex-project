@@ -1,0 +1,243 @@
+// Variables
+//// Colors
+$c-font: #6b6b6b;
+$c-hover: #fff0c4;
+$c-focus-visible: #ff9900;
+$c-background: #e2e2e2;
+
+//// Breakpoints
+$tablet: 768px;
+$desktop: 1024px;
+
+// Mixins
+@mixin reset-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin sr-only {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+  -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;  /* 2 */
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
+}
+
+@mixin container-space {
+  margin-top: 2rem;
+
+  @media (min-width: $tablet) {
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: $desktop) {
+    margin-top: 3rem;
+  }
+}
+
+@mixin container {
+  width: 100%;
+  padding-inline: 2rem;
+  box-sizing: border-box;
+
+  @media (min-width: $tablet) {
+    padding-inline: 2.5rem;
+  }
+
+  @media (min-width: $desktop) {
+    padding-inline: 3rem;
+  }
+}
+
+// Styles
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 700px;
+  margin: auto;
+  padding-block: 2rem;
+  color: $c-font;
+  box-sizing: border-box;
+
+  @media (min-width: $tablet) {
+    padding-block: 2.5rem;
+  }
+
+  @media (min-width: $desktop) {
+    padding-block: 3rem;
+  }
+
+  .main-header {
+    @include container;
+
+    text-align: center;
+  }
+
+  .search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    justify-content: center;
+
+    input[type="text"],
+    button {
+      background-color: $c-background;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      text-align: center;
+      box-shadow: 0 0 0 0 $c-focus-visible;
+      transition: background-color 200ms ease-in-out, box-shadow 200ms ease-in-out;
+
+      &:hover,
+      &:focus,
+      &:focus-visible {
+        background-color: $c-hover;
+      }
+
+      &:focus-visible {
+        outline: none ;
+        box-shadow: 0 0 3px 3px $c-focus-visible;
+      }
+    }
+
+    input[type="text"] {
+      flex: 1 1 300px;
+    }
+
+    input::placeholder {
+      color: $c-font;
+    }
+
+    button {
+      color: $c-font;
+      cursor: pointer;
+      flex: 0 0 180px;
+    }
+  }
+
+  .search-result {
+    @include container;
+    @include container-space;
+
+    &__inner {
+      background-color: $c-background;
+      padding: 1rem;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      @media (min-width: $tablet) {
+        padding: 1.5rem;
+      }
+    
+      @media (min-width: $desktop) {
+        min-height: 250px;
+        padding: 2rem;
+      }
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__success-indicator {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-color: red;
+      border-radius: 50%;
+
+      &--successful-launch {
+        background-color: green;
+      }
+    }
+
+    &__content {
+      margin-top: 1rem;
+      display: block;
+      text-align: left;
+
+      @media (min-width: $tablet) {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+      }
+    
+      @media (min-width: $desktop) {
+        margin-top: 3rem;
+      }
+    }
+
+    &__time-info {
+      h4 {
+        margin-block: 0 0.75rem;
+      }
+    }
+  }
+
+  .sr-only {
+    @include sr-only;
+  }
+
+  .past-launches {
+    @include container-space;
+    @include container;
+
+    ul {
+      @include reset-list;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+
+      @media (min-width: $desktop) {
+        justify-content: space-between;
+        flex-wrap: nowrap;
+      }
+    }
+
+    li {
+      display: flex;
+      background-color: $c-background;
+      padding: 1rem;
+      text-align: left;
+      flex: 0 0 100%;
+      box-sizing: border-box;
+
+      @media (min-width: $tablet) {
+        flex: 0 1 calc(50% - 15px);
+      }
+
+      @media (min-width: $desktop) {
+        flex: 0 1 calc(33.33% - 20px);
+      }
+
+      article {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      p {
+        font-size: 0.75rem;
+        word-break: break-all;
+      }
+    }
+  }
+}
